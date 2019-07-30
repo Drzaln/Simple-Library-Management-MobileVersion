@@ -45,6 +45,7 @@ export default class Register extends Component {
               REGISTER
             </Text>
             <TextInput
+              autoFocus
               keyboardType='numeric'
               mode='outlined'
               textContentType='creditCardNumber'
