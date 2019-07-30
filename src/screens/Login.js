@@ -42,6 +42,7 @@ export default class Login extends Component {
               LOGIN
             </Text>
             <TextInput
+              keyboardType='email-address'
               mode='outlined'
               textContentType='emailAddress'
               label='Email'

@@ -23,12 +23,12 @@ export default class Register extends Component {
         >
           <StatusBar backgroundColor='white' barStyle='dark-content' />
           <IconButton
-                icon='navigate-before'
-                color='black'
-                size={30}
-                onPress={() => this.props.navigation.goBack()}
-                style={{position:'absolute'}}
-              />
+            icon='navigate-before'
+            color='black'
+            size={30}
+            onPress={() => this.props.navigation.goBack()}
+            style={{ position: 'absolute' }}
+          />
           <View style={{ alignItems: 'center' }}>
             <Text
               text10
@@ -45,6 +45,7 @@ export default class Register extends Component {
               REGISTER
             </Text>
             <TextInput
+              keyboardType='numeric'
               mode='outlined'
               textContentType='creditCardNumber'
               label='Id'
@@ -53,6 +54,7 @@ export default class Register extends Component {
               style={{ borderRadius: 8, marginBottom: 8 }}
             />
             <TextInput
+              keyboardType='email-address'
               mode='outlined'
               textContentType='emailAddress'
               label='Email'
