@@ -33,7 +33,8 @@ class Home extends Component {
         style={{
           flex: 1,
           backgroundColor: 'white',
-          padding: 8
+          paddingHorizontal: 16,
+          paddingVertical: 8
         }}
       >
         <StatusBar backgroundColor='white' barStyle='dark-content' />
