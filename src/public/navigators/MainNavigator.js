@@ -12,7 +12,7 @@ const AppNavigator = createStackNavigator({
     DetailBook,
 }, {
     headerMode:'none',
-    initialRouteName:'DetailBook'
+    initialRouteName:'Login'
 })
 
 export default createAppContainer(AppNavigator)

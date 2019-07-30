@@ -87,7 +87,7 @@ class Home extends Component {
             ]}
             renderItem={({ item }) => (
               <TouchableRipple
-                onPress={() => alert('diklik')}
+              onPress={() => this.props.navigation.navigate('DetailBook')}
                 rippleColor='rgba(0, 0, 0, .32)'
               >
                 <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
