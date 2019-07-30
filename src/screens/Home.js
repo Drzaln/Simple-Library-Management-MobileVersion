@@ -118,7 +118,7 @@ class Home extends Component {
             backgroundColor: 'black'
           }}
           icon='add'
-          onPress={() => console.log('Pressed')}
+          onPress={() => alert('diklik')}
         />
       </View>
     )
