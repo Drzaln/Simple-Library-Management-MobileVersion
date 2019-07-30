@@ -9,9 +9,10 @@ const AppNavigator = createStackNavigator({
     Home,
     Login,
     Register,
+    DetailBook,
 }, {
     headerMode:'none',
-    initialRouteName:'Login'
+    initialRouteName:'DetailBook'
 })
 
 export default createAppContainer(AppNavigator)
