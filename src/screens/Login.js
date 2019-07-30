@@ -63,14 +63,14 @@ export default class Login extends Component {
               mode='contained'
               dark
               color='black'
-              onPress={() => alert('diklik')}
+              onPress={() => this.props.navigation.navigate('Home')}
             >
               Login
             </Button>
           </Card>
           <View style={{ alignItems: 'flex-end', marginVertical: 8 }}>
             <TouchableRipple
-              onPress={() => alert('diklik')}
+              onPress={() => this.props.navigation.navigate('Register')}
               rippleColor='rgba(0, 0, 0, .32)'
             >
               <Text style={{ color: 'black' }}>New Member? Register Here!</Text>

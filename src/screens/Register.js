@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StatusBar, ScrollView } from 'react-native'
-import { Text, Card, TextInput, Button } from 'react-native-paper'
+import { Text, Card, TextInput, Button, IconButton } from 'react-native-paper'
 
 export default class Register extends Component {
   state = {
@@ -22,6 +22,13 @@ export default class Register extends Component {
           }}
         >
           <StatusBar backgroundColor='white' barStyle='dark-content' />
+          <IconButton
+                icon='navigate-before'
+                color='black'
+                size={30}
+                onPress={() => this.props.navigation.goBack()}
+                style={{position:'absolute'}}
+              />
           <View style={{ alignItems: 'center' }}>
             <Text
               text10

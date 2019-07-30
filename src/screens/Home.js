@@ -52,7 +52,7 @@ class Home extends Component {
               icon='account-circle'
               color={Colors.grey700}
               size={30}
-              onPress={() => console.warn('Pressed')}
+              onPress={() => this.props.navigation.goBack()}
             />
           </View>
         </View>
