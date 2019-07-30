@@ -7,7 +7,7 @@ import Register from "../../screens/Register";
 const AppNavigator = createStackNavigator({
     Home,
     Login,
-    // Register,
+    Register,
 }, {
     headerMode:'none',
     initialRouteName:'Login'
