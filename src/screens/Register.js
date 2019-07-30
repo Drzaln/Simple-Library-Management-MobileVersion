@@ -26,7 +26,7 @@ export default class Register extends Component {
             icon='navigate-before'
             color='black'
             size={30}
-            onPress={() => this.props.navigation.goBack()}
+            onPress={() => this.props.navigation.navigate('Home')}
             style={{ position: 'absolute' }}
           />
           <View style={{ alignItems: 'center' }}>

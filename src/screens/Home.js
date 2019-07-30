@@ -38,22 +38,39 @@ class Home extends Component {
         }}
       >
         <StatusBar backgroundColor='white' barStyle='dark-content' />
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 1 }}>
-            <Text
-              text10
-              style={{ fontSize: 40, fontWeight: 'bold', marginBottom: 20 }}
-            >
+        <View style={{ flexDirection: 'row', marginBottom: 16 }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center'
+            }}
+          >
+            <Text text10 style={{ fontSize: 40, fontWeight: 'bold' }}>
               BOOKS
             </Text>
           </View>
-          <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <IconButton
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'flex-end',
+              justifyContent: 'center'
+            }}
+          >
+            {/* // Button  buat profile */}
+            {/* <IconButton
               icon='account-circle'
               color={Colors.grey700}
               size={30}
               onPress={() => this.props.navigation.goBack()}
-            />
+            /> */}
+            <TouchableRipple
+              onPress={() => this.props.navigation.navigate('Login')}
+              rippleColor='rgba(0, 0, 0, .32)'
+            >
+              <Text text10 style={{ color: 'black', fontSize: 16 }}>
+                Login
+              </Text>
+            </TouchableRipple>
           </View>
         </View>
 
@@ -87,7 +104,7 @@ class Home extends Component {
             ]}
             renderItem={({ item }) => (
               <TouchableRipple
-              onPress={() => this.props.navigation.navigate('DetailBook')}
+                onPress={() => this.props.navigation.navigate('DetailBook')}
                 rippleColor='rgba(0, 0, 0, .32)'
               >
                 <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
