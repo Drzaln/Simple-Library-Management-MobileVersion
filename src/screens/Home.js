@@ -26,8 +26,9 @@ class Home extends Component {
   }
 
   render () {
-    const { firstQuery } = this.state
-    // const { books } = this.state
+    // const { firstQuery } = this.state
+    console.log(`halooooo`, this.state.books.listBuku)
+    const { books } = this.state
     return (
       <View
         style={{
@@ -77,100 +78,15 @@ class Home extends Component {
           <Searchbar
             placeholder='Search'
             onChangeText={query => {
-              this.setState({ firstQuery: query })
+              this.setState({ books: query })
             }}
-            value={firstQuery}
+            value={books}
             style={{ borderRadius: 32, width: '90%', height: 40 }}
           />
         </View>
         <FlatList
-          // data={this.state.books}
-          data={[
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fermiliablog.files.wordpress.com%2F2012%2F09%2Fsunsetkisses-copy.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            },
-            {
-              key:
-                'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1'
-            }
-          ]}
+          data={this.state.books.listBuku}
+          keyExtractor={item => item.id_buku.toString()}
           renderItem={({ item }) => (
             <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
               <TouchableRipple
@@ -184,7 +100,7 @@ class Home extends Component {
                     height: 200,
                     borderRadius: 8
                   }}
-                  source={{ uri: item.key }}
+                  source={{ uri: item.gmb_buku }}
                 />
               </TouchableRipple>
             </Card>

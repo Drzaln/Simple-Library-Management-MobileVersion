@@ -12,7 +12,7 @@ export default class DetailBook extends Component {
     };
 }
 
-componentWillMount() {
+componentDidMount() {
   let self = this;
   colorsFromUrl(imageUrl, (err, colors) => {
       if(!err) {

@@ -5,6 +5,7 @@ import Login from "../../screens/Login";
 import Register from "../../screens/Register";
 import DetailBook from "../../screens/DetailBook";
 import AddBook from "../../screens/AddBook";
+import Profile from "../../screens/Profile";
 
 const AppNavigator = createStackNavigator({
     Home,
@@ -12,6 +13,7 @@ const AppNavigator = createStackNavigator({
     Register,
     DetailBook,
     AddBook,
+    Profile,
 }, {
     headerMode:'none',
     initialRouteName:'Home'
