@@ -1,8 +1,26 @@
 import React, { Component } from 'react'
 import { View, StatusBar, ScrollView, Image } from 'react-native'
 import { Text, IconButton, Colors, Card, FAB } from 'react-native-paper'
+import { colorsFromUrl } from "react-native-dominant-color";
 
+const imageUrl = 'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1';
 export default class DetailBook extends Component {
+  constructor() {
+    super();
+    this.state = {
+        color: '#ffffff',
+    };
+}
+
+componentWillMount() {
+  let self = this;
+  colorsFromUrl(imageUrl, (err, colors) => {
+      if(!err) {
+          self.setState({ color: colors.averageColor });
+      }
+  });
+}
+
   render () {
     return (
       <View>
@@ -23,7 +41,7 @@ export default class DetailBook extends Component {
               style={{ position: 'absolute' }}
             />
 
-            <StatusBar backgroundColor='white' barStyle='dark-content' />
+            <StatusBar backgroundColor={this.state.color} barStyle='dark-content' />
             <View style={{ flexDirection: 'row', marginBottom: 16, marginTop: 35 }}>
               <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'column' }}>
@@ -33,7 +51,7 @@ export default class DetailBook extends Component {
                   <InfoBuku info='Status Buku' isi='Tersedia' />
                 </View>
               </View>
-              <GambarBuku gambar='https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fdamonza.com%2Fwp-content%2Fuploads%2Fportfolio%2Ffiction%2FWorld-Whisperer.jpg&f=1' />
+              <GambarBuku gambar={imageUrl} />
             </View>
           </View>
           <View
