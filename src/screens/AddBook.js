@@ -1,18 +1,52 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { postBuku } from '../public/redux/actions/buku'
 import { View, StatusBar, ScrollView } from 'react-native'
 import { Text, Card, TextInput, Button, IconButton } from 'react-native-paper'
 
-export default class Register extends Component {
-  state = {
-    url_image: '',
-    title: '',
-    author: '',
-    category: '',
-    location: '',
-    description: ''
+class AddBook extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      buku: [],
+      gmb_buku: '',
+      nama_buku: '',
+      penulis_buku: '',
+      id_kategori: '',
+      lokasi_buku: '',
+      ringkasan: ''
+    }
   }
 
+  // state = {
+  //   gmb_buku: '',
+  //   nama_buku: '',
+  //   penulis_buku: '',
+  //   id_kategori: '',
+  //   lokasi_buku: '',
+  //   ringkasan: ''
+  // }
+
   render () {
+    let add = async () => {
+      await this.props.dispatch(postBuku(this.state.buku[0]))
+    }
+
+    console.log(`uedaaaaann`, this.state.buku[0])
+
+    const bookAdd = () => {
+      this.state.buku.push({
+        nama_buku: this.state.nama_buku,
+        penulis_buku: this.state.penulis_buku,
+        ringkasan: this.state.ringkasan,
+        lokasi_buku: this.state.lokasi_buku,
+        gmb_buku: this.state.gmb_buku,
+        id_kategori: this.state.id_kategori
+      })
+      add()
+      console.log(`cihuuuyyy`, this.state.buku)
+    }
+
     return (
       <ScrollView>
         <View
@@ -50,8 +84,8 @@ export default class Register extends Component {
                   mode='outlined'
                   textContentType='URL'
                   label='Image Url'
-                  value={this.state.url_image}
-                  onChangeText={url_image => this.setState({ url_image })}
+                  value={this.state.gmb_buku}
+                  onChangeText={gmb_buku => this.setState({ gmb_buku })}
                   style={{ borderRadius: 8 }}
                 />
               </View>
@@ -79,42 +113,43 @@ export default class Register extends Component {
               keyboardType='default'
               mode='outlined'
               textContentType='none'
-              label='Title'
-              value={this.state.title}
-              onChangeText={title => this.setState({ title })}
+              label='Book Name'
+              value={this.state.nama_buku}
+              onChangeText={nama_buku => this.setState({ nama_buku })}
               style={{ borderRadius: 8, marginBottom: 8 }}
             />
             <TextInput
               mode='outlined'
               textContentType='username'
               label='Author'
-              value={this.state.author}
-              onChangeText={author => this.setState({ author })}
+              value={this.state.penulis_buku}
+              onChangeText={penulis_buku => this.setState({ penulis_buku })}
               style={{ borderRadius: 8, marginBottom: 8 }}
             />
             <TextInput
+              keyboardType='numeric'
               mode='outlined'
               textContentType='none'
-              label='Category'
-              value={this.state.category}
-              onChangeText={category => this.setState({ category })}
+              label='Category ID'
+              value={this.state.id_kategori}
+              onChangeText={id_kategori => this.setState({ id_kategori })}
               style={{ borderRadius: 8, marginBottom: 8 }}
             />
             <TextInput
               mode='outlined'
               textContentType='none'
               label='Book Location'
-              value={this.state.location}
-              onChangeText={location => this.setState({ location })}
+              value={this.state.lokasi_buku}
+              onChangeText={lokasi_buku => this.setState({ lokasi_buku })}
               style={{ borderRadius: 8, marginBottom: 8 }}
             />
             <TextInput
               multiline
               mode='outlined'
               textContentType='none'
-              label='Book Description'
-              value={this.state.description}
-              onChangeText={description => this.setState({ description })}
+              label='Description'
+              value={this.state.ringkasan}
+              onChangeText={ringkasan => this.setState({ ringkasan })}
               style={{ borderRadius: 8, marginBottom: 8 }}
             />
             <Button
@@ -122,7 +157,7 @@ export default class Register extends Component {
               mode='contained'
               dark
               color='black'
-              onPress={() => alert('diklik')}
+              onPress={bookAdd.bind(this)}
             >
               ADD BOOK
             </Button>
@@ -132,3 +167,11 @@ export default class Register extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    buku: state.buku
+  }
+}
+
+export default connect(mapStateToProps)(AddBook)
