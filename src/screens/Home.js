@@ -28,6 +28,7 @@ class Home extends Component {
   render () {
     const { firstQuery } = this.state
     console.log(`halooooo`, this.state.books.listBuku)
+    const haiData = this.state.books.listBuku
     const { books } = this.state
     return (
       <View
@@ -84,33 +85,44 @@ class Home extends Component {
             style={{ borderRadius: 32, width: '90%', height: 40 }}
           />
         </View>
-        <FlatList
-          data={this.state.books.listBuku}
-          keyExtractor={item => item.id_buku.toString()}
-          renderItem={({ item }) => (
-            <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
-              <TouchableRipple
-                onPress={() => this.props.navigation.navigate('DetailBook')}
-                rippleColor='rgba(0, 0, 0, .32)'
-                borderless
-              >
-                <Image
-                  style={{
-                    width: 150,
-                    height: 200,
-                    borderRadius: 8
-                  }}
-                  source={{ uri: item.gmb_buku }}
-                />
-              </TouchableRipple>
-            </Card>
-          )}
-          style={{
-            marginTop: 16,
-            width: '100%'
-          }}
-          numColumns={2}
-        />
+        {haiData != null ? (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={this.state.books.listBuku}
+            keyExtractor={item => item.id_buku.toString()}
+            renderItem={({ item }) => (
+              <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
+                <TouchableRipple
+                  onPress={() => this.props.navigation.navigate('DetailBook')}
+                  rippleColor='rgba(0, 0, 0, .32)'
+                  borderless
+                >
+                  <Image
+                    style={{
+                      width: 150,
+                      height: 200,
+                      borderRadius: 8
+                    }}
+                    source={{ uri: item.gmb_buku }}
+                  />
+                </TouchableRipple>
+              </Card>
+            )}
+            style={{
+              marginTop: 16,
+              width: '100%'
+            }}
+            numColumns={2}
+          />
+        ) : (
+          <View style={{ alignItems: 'center' }}>
+            <Text
+              style={{ marginTop: '50%', fontSize: 40, fontWeight: 'bold' }}
+            >
+              Can't Get Data!
+            </Text>
+          </View>
+        )}
         <FAB
           style={{
             position: 'absolute',

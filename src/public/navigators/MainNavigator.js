@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator({
     Profile,
 }, {
     headerMode:'none',
-    initialRouteName:'Home'
+    initialRouteName:'Profile'
 })
 
 export default createAppContainer(AppNavigator)
