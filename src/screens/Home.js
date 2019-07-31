@@ -26,7 +26,7 @@ class Home extends Component {
   }
 
   render () {
-    // const { firstQuery } = this.state
+    const { firstQuery } = this.state
     console.log(`halooooo`, this.state.books.listBuku)
     const { books } = this.state
     return (
@@ -78,9 +78,9 @@ class Home extends Component {
           <Searchbar
             placeholder='Search'
             onChangeText={query => {
-              this.setState({ books: query })
+              this.setState({ firstQuery: query })
             }}
-            value={books}
+            value={firstQuery}
             style={{ borderRadius: 32, width: '90%', height: 40 }}
           />
         </View>
