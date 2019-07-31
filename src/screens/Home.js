@@ -13,9 +13,12 @@ import {
 } from 'react-native-paper'
 
 class Home extends Component {
-  state = {
-    firstQuery: '',
-    books: []
+  constructor () {
+    super()
+    this.state = {
+      firstQuery: '',
+      books: []
+    }
   }
 
   componentDidMount = async () => {
@@ -93,7 +96,11 @@ class Home extends Component {
             renderItem={({ item }) => (
               <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
                 <TouchableRipple
-                  onPress={() => this.props.navigation.navigate('DetailBook')}
+                  onPress={() =>
+                    this.props.navigation.navigate('DetailBook', {
+                      id_buku: item.id_buku
+                    })
+                  }
                   rippleColor='rgba(0, 0, 0, .32)'
                   borderless
                 >
