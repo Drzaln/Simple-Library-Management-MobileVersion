@@ -9,7 +9,8 @@ import {
   IconButton,
   Colors,
   FAB,
-  Card
+  Card,
+  Button
 } from 'react-native-paper'
 
 class Home extends Component {
@@ -95,24 +96,53 @@ class Home extends Component {
             keyExtractor={item => item.id_buku.toString()}
             renderItem={({ item }) => (
               <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
-                <TouchableRipple
-                  onPress={() =>
-                    this.props.navigation.navigate('DetailBook', {
-                      id_buku: item.id_buku
-                    })
-                  }
-                  rippleColor='rgba(0, 0, 0, .32)'
-                  borderless
-                >
-                  <Image
-                    style={{
-                      width: 150,
-                      height: 200,
-                      borderRadius: 8
-                    }}
-                    source={{ uri: item.gmb_buku }}
-                  />
-                </TouchableRipple>
+                {item.status_pinjam == 'dipinjam' ? (
+                  <>
+                    <Image
+                      progressiveRenderingEnabled
+                      style={{
+                        width: 150,
+                        height: 200,
+                        borderRadius: 8
+                      }}
+                      source={{ uri: item.gmb_buku }}
+                    />
+                    <Button
+                      mode='contained'
+                      onPress={() => {}}
+                      style={{
+                        top: '40%',
+                        position: 'absolute',
+                        backgroundColor: 'black',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      {item.status_pinjam}
+                    </Button>
+                  </>
+                ) : (
+                  <TouchableRipple
+                    onPress={() =>
+                      this.props.navigation.navigate('DetailBook', {
+                        id_buku: item.id_buku
+                      })
+                    }
+                    rippleColor='rgba(0, 0, 0, .32)'
+                    borderless
+                  >
+                    <Image
+                      progressiveRenderingEnabled
+                      style={{
+                        width: 150,
+                        height: 200,
+                        borderRadius: 8
+                      }}
+                      source={{ uri: item.gmb_buku }}
+                    />
+                  </TouchableRipple>
+                )}
               </Card>
             )}
             style={{

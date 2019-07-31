@@ -48,7 +48,7 @@ class DetailBook extends Component {
             >
               <IconButton
                 icon='navigate-before'
-                color='black'
+                color={this.state.color}
                 size={30}
                 onPress={() => this.props.navigation.goBack()}
                 style={{ position: 'absolute' }}
@@ -112,7 +112,7 @@ class DetailBook extends Component {
             margin: 16,
             right: 0,
             bottom: 0,
-            backgroundColor: 'black'
+            backgroundColor: this.state.color
           }}
           onPress={() => alert('diklik')}
         />
