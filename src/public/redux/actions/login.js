@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AsyncStorage } from "react-native";
 import Url from "../../../support/url";
 
 export const userLogin = (data) => {
@@ -12,17 +13,17 @@ export const userLogin = (data) => {
                 'x-user': '1'
               }
         }).then(res => {
-            console.log(`haloooooo`, res)
+            console.log(`Dicoba yang di Login`, res)
             const token = res.data.token
-            const id_user = res.data.id_user
+            const id_user = res.data.id_user.toString()
             const nama_user = res.data.nama_user
             const status = res.data.status
-            const level = res.data.level
-            localStorage.setItem('token', token)
-            localStorage.setItem('id_user', id_user)
-            localStorage.setItem('nama_user', nama_user)
-            localStorage.setItem('status', status)
-            localStorage.setItem('level', level)
+            const email = res.data.email
+            AsyncStorage.setItem('token', token)
+            AsyncStorage.setItem('id_user', id_user)
+            AsyncStorage.setItem('nama_user', nama_user)
+            AsyncStorage.setItem('status', status)
+            AsyncStorage.setItem('email', email)
         }),
         // headers:{
         //     "Content-Type": "application/json",

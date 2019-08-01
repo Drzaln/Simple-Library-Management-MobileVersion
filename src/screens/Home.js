@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { NavigationEvents } from "react-navigation";
+import { NavigationEvents } from 'react-navigation'
 import { getBuku } from '../public/redux/actions/buku'
 import { connect } from 'react-redux'
-import { View, StatusBar, FlatList, Image } from 'react-native'
+import { View, StatusBar, FlatList, Image, AsyncStorage } from 'react-native'
 import {
   Searchbar,
   TouchableRipple,
@@ -20,17 +20,54 @@ class Home extends Component {
     this.state = {
       books: [],
       data: [],
-      refreshing: false
+      refreshing: false,
+      token: '',
+      id_user: '',
+      nama_user: '',
+      status: '',
+      email: ''
     }
     this.arrayholder = []
+
+    AsyncStorage.getItem('token', (err, result) => {
+      if (result) {
+        this.setState({
+          token: result
+        })
+        console.log(`ini dari callback token`, result)
+      }
+    })
+    AsyncStorage.getItem('id_user', (err, result) => {
+      if (result) {
+        this.setState({
+          id_user: result
+        })
+      }
+    })
+    AsyncStorage.getItem('nama_user', (err, result) => {
+      if (result) {
+        this.setState({
+          nama_user: result
+        })
+      }
+    })
+    AsyncStorage.getItem('status', (err, result) => {
+      if (result) {
+        this.setState({
+          status: result
+        })
+      }
+    })
+    AsyncStorage.getItem('email', (err, result) => {
+      if (result) {
+        this.setState({
+          email: result
+        })
+      }
+    })
   }
 
   componentDidMount = () => {
-    // await this.props.dispatch(getBuku())
-    // this.setState({
-    //   books: this.props.buku.listBuku
-    // })
-    // console.log(`testinggggg`, this.props.buku.listBuku)
     this.makeRequest()
   }
 
@@ -38,10 +75,10 @@ class Home extends Component {
     await this.props.dispatch(getBuku())
     this.setState({
       books: this.props.buku.listBuku,
-      refreshing:false
+      refreshing: false
     })
     console.log(`testinggggg`, this.props.buku.listBuku)
-}
+  }
 
   searchFilterFunction = text => {
     this.setState({
@@ -71,6 +108,7 @@ class Home extends Component {
   }
 
   render () {
+    console.log(`yihaaaaa`, this.state.token)
     const { firstQuery } = this.state
     console.log(`halooooo`, this.state.books)
     const haiData = this.state.books
@@ -84,7 +122,7 @@ class Home extends Component {
           paddingVertical: 8
         }}
       >
-      <NavigationEvents onWillFocus={() => this.makeRequest()} />
+        <NavigationEvents onWillFocus={payload => this.makeRequest()} />
         <StatusBar backgroundColor='white' barStyle='dark-content' />
         <View style={{ flexDirection: 'row', marginBottom: 16 }}>
           <View
@@ -105,20 +143,23 @@ class Home extends Component {
             }}
           >
             {/* // Button  buat profile */}
-            {/* <IconButton
-              icon='account-circle'
-              color={Colors.grey700}
-              size={30}
-              onPress={() => this.props.navigation.goBack()}
-            /> */}
-            <TouchableRipple
-              onPress={() => this.props.navigation.navigate('Login')}
-              rippleColor='rgba(0, 0, 0, .32)'
-            >
-              <Text text10 style={{ color: 'black', fontSize: 16 }}>
-                Login
-              </Text>
-            </TouchableRipple>
+            {this.state.token != '' ? (
+              <IconButton
+                icon='account-circle'
+                color={Colors.grey700}
+                size={30}
+                onPress={() => this.props.navigation.navigate('Profile')}
+              />
+            ) : (
+              <TouchableRipple
+                onPress={() => this.props.navigation.navigate('Login')}
+                rippleColor='rgba(0, 0, 0, .32)'
+              >
+                <Text text10 style={{ color: 'black', fontSize: 16 }}>
+                  Login
+                </Text>
+              </TouchableRipple>
+            )}
           </View>
         </View>
         <View style={{ alignContent: 'center', alignItems: 'center' }}>

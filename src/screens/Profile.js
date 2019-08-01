@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StatusBar, Image, ScrollView } from 'react-native'
+import { View, StatusBar, Image, ScrollView, AsyncStorage } from 'react-native'
 import {
   Text,
   Card,
@@ -10,6 +10,63 @@ import {
 } from 'react-native-paper'
 
 export default class Profile extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      books: [],
+      data: [],
+      refreshing: false,
+      token: '',
+      id_user: '',
+      nama_user: '',
+      status: '',
+      email: ''
+    }
+    this.arrayholder = []
+
+    AsyncStorage.getItem('token', (err, result) => {
+      if (result) {
+        this.setState({
+          token: result
+        })
+      }
+    })
+    AsyncStorage.getItem('id_user', (err, result) => {
+      if (result) {
+        this.setState({
+          id_user: result
+        })
+      }
+    })
+    AsyncStorage.getItem('nama_user', (err, result) => {
+      if (result) {
+        this.setState({
+          nama_user: result
+        })
+      }
+    })
+    AsyncStorage.getItem('status', (err, result) => {
+      if (result) {
+        this.setState({
+          status: result
+        })
+      }
+    })
+    AsyncStorage.getItem('email', (err, result) => {
+      if (result) {
+        this.setState({
+          email: result
+        })
+      }
+    })
+  }
+
+  logout = () => {
+    AsyncStorage.clear().then(() => {
+      this.props.navigation.navigate('Home')
+    })
+  }
+
   render () {
     return (
       <View
@@ -38,7 +95,7 @@ export default class Profile extends Component {
             }}
           >
             <TouchableRipple
-              onPress={() => this.props.navigation.navigate('Login')}
+              onPress={() => this.logout()}
               rippleColor='rgba(0, 0, 0, .32)'
             >
               <Text text10 style={{ color: 'black', fontSize: 16 }}>
@@ -63,9 +120,9 @@ export default class Profile extends Component {
             />
           </View>
           <View style={{ flex: 1 }}>
-            <Headline>Doddy Rizal Novianto</Headline>
-            <Caption>rizaaru@gmail.com</Caption>
-            <Caption>4611417023</Caption>
+            <Headline>{this.state.nama_user}</Headline>
+            <Caption>{this.state.email}</Caption>
+            <Caption>{this.state.id_user}</Caption>
           </View>
         </View>
         <Card

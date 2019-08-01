@@ -16,7 +16,7 @@ class Login extends Component {
     this.state = {
       loginUser: [],
       email: '',
-      password: ''
+      password: '',
     }
   }
 
@@ -27,10 +27,12 @@ class Login extends Component {
         password: this.state.password
       })
       logindong()
+      console.warn(`cobaaaaaaaaa`, this.state.loginUser[0])
     }
 
     let logindong = async () => {
-      await this.props.dispatch(userLogin(this.state.loginUser[0])).then(() => {
+      await this.props.dispatch(userLogin(this.state.loginUser[0]))
+      .then(() => {
         this.props.navigation.navigate('Home')
       })
     }
@@ -85,7 +87,7 @@ class Login extends Component {
               mode='contained'
               dark
               color='black'
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={loginUser.bind(this)}
             >
               Login
             </Button>
