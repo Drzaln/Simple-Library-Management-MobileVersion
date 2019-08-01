@@ -14,25 +14,65 @@ import {
 } from 'react-native-paper'
 
 class Home extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
-      firstQuery: '',
-      books: []
+      books: [],
+      data: [],
+      refreshing: false
     }
+    this.arrayholder = []
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
+    // await this.props.dispatch(getBuku())
+    // this.setState({
+    //   books: this.props.buku.listBuku
+    // })
+    // console.log(`testinggggg`, this.props.buku.listBuku)
+    this.makeRequest()
+  }
+
+  makeRequest = async () => {
     await this.props.dispatch(getBuku())
     this.setState({
-      books: this.props.buku
+      books: this.props.buku.listBuku,
+      refreshing:false
     })
+    console.log(`testinggggg`, this.props.buku.listBuku)
+}
+
+  searchFilterFunction = text => {
+    this.setState({
+      value: text
+    })
+
+    const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.listBuku.nama_buku.toUpperCase()} ${item.listBuku.penulis_buku.toUpperCase()} ${item.listBuku.lokasi_buku.toUpperCase()}`
+      const textData = text.toUpperCase()
+
+      return itemData.indexOf(textData) > -1
+    })
+    this.setState({
+      data: newData
+    })
+  }
+
+  handleRefresh = () => {
+    this.setState(
+      {
+        refreshing: true
+      },
+      () => {
+        this.makeRequest()
+      }
+    )
   }
 
   render () {
     const { firstQuery } = this.state
-    console.log(`halooooo`, this.state.books.listBuku)
-    const haiData = this.state.books.listBuku
+    console.log(`halooooo`, this.state.books)
+    const haiData = this.state.books
     const { books } = this.state
     return (
       <View
@@ -82,17 +122,18 @@ class Home extends Component {
         <View style={{ alignContent: 'center', alignItems: 'center' }}>
           <Searchbar
             placeholder='Search'
-            onChangeText={query => {
-              this.setState({ firstQuery: query })
-            }}
-            value={firstQuery}
+            onChangeText={text => this.searchFilterFunction(text)}
+            value={this.state.value}
             style={{ borderRadius: 32, width: '90%', height: 40 }}
           />
         </View>
-        {haiData != null ? (
+        {haiData != 'undefined' ? (
           <FlatList
+            extraData={this.state.books}
+            refreshing={this.state.refreshing}
+            onRefresh={this.handleRefresh}
             showsVerticalScrollIndicator={false}
-            data={this.state.books.listBuku}
+            data={this.state.books}
             keyExtractor={item => item.id_buku.toString()}
             renderItem={({ item }) => (
               <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
