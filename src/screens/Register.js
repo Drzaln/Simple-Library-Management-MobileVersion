@@ -1,16 +1,31 @@
 import React, { Component } from 'react'
 import { View, StatusBar, ScrollView } from 'react-native'
 import { Text, Card, TextInput, Button, IconButton } from 'react-native-paper'
+import { registerUser } from '../public/redux/actions/user'
+import { connect } from 'react-redux'
 
-export default class Register extends Component {
-  state = {
-    id_user: '',
-    email: '',
-    username: '',
-    password: ''
+class Register extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      userRegister: []
+    }
   }
 
   render () {
+    const userRegister = () => {
+      this.state.userRegister.push({
+        id_user: this.state.id_user,
+        nama_user: this.state.nama_user,
+        email: this.state.email,
+        password: this.state.password
+      })
+      console.log(`User register`, userRegister)
+      this.props.dispatch(registerUser(this.state.userRegister)).then(() => {
+        this.props.navigation.navigate('Login')
+      })
+    }
+
     return (
       <ScrollView>
         <View
@@ -67,8 +82,8 @@ export default class Register extends Component {
               mode='outlined'
               textContentType='username'
               label='Username'
-              value={this.state.username}
-              onChangeText={username => this.setState({ username })}
+              value={this.state.nama_user}
+              onChangeText={nama_user => this.setState({ nama_user })}
               style={{ borderRadius: 8, marginBottom: 8 }}
             />
             <TextInput
@@ -85,7 +100,7 @@ export default class Register extends Component {
               mode='contained'
               dark
               color='black'
-              onPress={() => alert('diklik')}
+              onPress={() => userRegister()}
             >
               Register
             </Button>
@@ -95,3 +110,11 @@ export default class Register extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Register)
