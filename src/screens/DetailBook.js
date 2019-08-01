@@ -1,17 +1,51 @@
 import React, { Component } from 'react'
-import { View, StatusBar, ScrollView, Image } from 'react-native'
-import { Text, IconButton, Colors, Card, FAB } from 'react-native-paper'
+import { View, StatusBar, ScrollView, Image, AsyncStorage } from 'react-native'
+import { Text, IconButton, Card, FAB } from 'react-native-paper'
 import { colorsFromUrl } from 'react-native-dominant-color'
 import { connect } from 'react-redux'
 import { getBukuId } from '../public/redux/actions/buku'
+import { postPinjam } from "../public/redux/actions/pinjam";
 
 class DetailBook extends Component {
   constructor () {
     super()
     this.state = {
       color: '#ffffff',
-      books: []
+      books: [],
+      pinjam:[],
+      token: '',
+      id_user: '',
+      nama_user: '',
+      email: ''
     }
+    AsyncStorage.getItem('token', (err, result) => {
+      if (result) {
+        this.setState({
+          token: result
+        })
+      }
+    })
+    AsyncStorage.getItem('id_user', (err, result) => {
+      if (result) {
+        this.setState({
+          id_user: result
+        })
+      }
+    })
+    AsyncStorage.getItem('nama_user', (err, result) => {
+      if (result) {
+        this.setState({
+          nama_user: result
+        })
+      }
+    })
+    AsyncStorage.getItem('email', (err, result) => {
+      if (result) {
+        this.setState({
+          email: result
+        })
+      }
+    })
   }
 
   componentDidMount = async () => {
@@ -31,9 +65,35 @@ class DetailBook extends Component {
   }
 
   render () {
+
+    const cekLogin = () => {
+      if (this.state.token == '') {
+        this.props.navigation.navigate('Login')
+      } else {
+        addPinjam()
+      }
+    }
+
+    const addPinjam = () => {
+      this.state.pinjam.push({
+        id_user: this.state.id_user,
+        nama_user: this.state.nama_user,
+        id_buku: this.props.navigation.getParam('id_buku'),
+        lama_pinjam: 3,
+        tgl_pinjam: new Date(),
+      })
+      
+      add()
+    }
+    let add = async () => {
+      await this.props.dispatch(postPinjam(this.state.pinjam[0])).then(() => {
+        this.props.navigation.navigate('Home')
+      })
+    }
+
     const { books } = this.state
     const list = books.listBuku
-    console.log(`cucoooookk`, list)
+    // console.warn(`cucoooookk`, list)
     return (
       <>
         <View>
@@ -114,7 +174,7 @@ class DetailBook extends Component {
             bottom: 0,
             backgroundColor: this.state.color
           }}
-          onPress={() => alert('diklik')}
+          onPress={() => cekLogin()}
         />
       </>
     )
@@ -123,7 +183,8 @@ class DetailBook extends Component {
 
 const mapStateToProps = state => {
   return {
-    buku: state.buku
+    buku: state.buku,
+    pinjam: state.pinjam
   }
 }
 
