@@ -18,15 +18,6 @@ class AddBook extends Component {
     }
   }
 
-  // state = {
-  //   gmb_buku: '',
-  //   nama_buku: '',
-  //   penulis_buku: '',
-  //   id_kategori: '',
-  //   lokasi_buku: '',
-  //   ringkasan: ''
-  // }
-
   render () {
     let add = async () => {
       await this.props.dispatch(postBuku(this.state.buku[0]))
@@ -45,6 +36,7 @@ class AddBook extends Component {
       })
       add()
       console.log(`cihuuuyyy`, this.state.buku)
+      this.props.navigation.navigate('Home')
     }
 
     return (

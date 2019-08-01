@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from "react-redux";
+import { userLogin } from "../public/redux/actions/login";
 import { View, StatusBar, ScrollView } from 'react-native'
 import {
   Text,
@@ -8,13 +10,34 @@ import {
   TouchableRipple
 } from 'react-native-paper'
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
-    text: '',
+    email: '',
     password: ''
   }
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      loginUser: []
+    }
+  }
+
   render () {
+
+    const loginUser = () => {
+      this.state.loginUser.push({
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      })
+      logindong()
+      console.log(`cobaaaaaaaaa`, this.state.loginUser[0])
+    }
+
+    let logindong = async () => {
+      await this.props.dispatch(userLogin(this.state.loginUser[0]))
+    }
+
     return (
       <ScrollView>
         <View
@@ -47,8 +70,8 @@ export default class Login extends Component {
               mode='outlined'
               textContentType='emailAddress'
               label='Email'
-              value={this.state.text}
-              onChangeText={text => this.setState({ text })}
+              value={this.state.email}
+              onChangeText={email => this.setState({ email })}
               style={{ borderRadius: 8, marginBottom: 8 }}
             />
             <TextInput
@@ -83,3 +106,11 @@ export default class Login extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    login: state.login
+  }
+}
+
+export default connect(mapStateToProps)(Login)
