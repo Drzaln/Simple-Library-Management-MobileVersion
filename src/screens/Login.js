@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from "react-redux";
-import { userLogin } from "../public/redux/actions/login";
-import { View, StatusBar, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
+import { userLogin } from '../public/redux/actions/login'
+import { View, StatusBar, ScrollView, AsyncStorage } from 'react-native'
 import {
   Text,
   Card,
@@ -11,31 +11,28 @@ import {
 } from 'react-native-paper'
 
 class Login extends Component {
-  state = {
-    email: '',
-    password: ''
-  }
-
   constructor (props) {
     super(props)
     this.state = {
-      loginUser: []
+      loginUser: [],
+      email: '',
+      password: ''
     }
   }
 
   render () {
-
     const loginUser = () => {
       this.state.loginUser.push({
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
+        email: this.state.email,
+        password: this.state.password
       })
       logindong()
-      console.log(`cobaaaaaaaaa`, this.state.loginUser[0])
     }
 
     let logindong = async () => {
-      await this.props.dispatch(userLogin(this.state.loginUser[0]))
+      await this.props.dispatch(userLogin(this.state.loginUser[0])).then(() => {
+        this.props.navigation.navigate('Home')
+      })
     }
 
     return (

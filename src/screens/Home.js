@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavigationEvents } from "react-navigation";
 import { getBuku } from '../public/redux/actions/buku'
 import { connect } from 'react-redux'
 import { View, StatusBar, FlatList, Image } from 'react-native'
@@ -83,6 +84,7 @@ class Home extends Component {
           paddingVertical: 8
         }}
       >
+      <NavigationEvents onWillFocus={() => this.makeRequest()} />
         <StatusBar backgroundColor='white' barStyle='dark-content' />
         <View style={{ flexDirection: 'row', marginBottom: 16 }}>
           <View

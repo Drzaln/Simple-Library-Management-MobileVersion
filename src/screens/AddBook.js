@@ -20,7 +20,9 @@ class AddBook extends Component {
 
   render () {
     let add = async () => {
-      await this.props.dispatch(postBuku(this.state.buku[0]))
+      await this.props.dispatch(postBuku(this.state.buku[0])).then(() => {
+        this.props.navigation.goBack()
+      })
     }
 
     console.log(`uedaaaaann`, this.state.buku[0])
@@ -35,8 +37,6 @@ class AddBook extends Component {
         id_kategori: this.state.id_kategori
       })
       add()
-      console.log(`cihuuuyyy`, this.state.buku)
-      this.props.navigation.navigate('Home')
     }
 
     return (
@@ -54,7 +54,7 @@ class AddBook extends Component {
             icon='navigate-before'
             color='black'
             size={30}
-            onPress={() => this.props.navigation.navigate('Home')}
+            onPress={() => this.props.navigation.goBack()}
             style={{ position: 'absolute' }}
           />
           <Card style={{ padding: 16, borderRadius: 8, marginTop: 40 }}>
