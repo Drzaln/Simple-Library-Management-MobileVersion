@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { View, StatusBar, Image, ScrollView, AsyncStorage } from 'react-native'
+import { NavigationEvents } from 'react-navigation'
+import { connect } from 'react-redux'
+import { getPinjamId } from '../public/redux/actions/pinjam'
+import { View, StatusBar, Image, FlatList, AsyncStorage } from 'react-native'
 import {
   Text,
   Card,
@@ -9,11 +12,12 @@ import {
   TouchableRipple
 } from 'react-native-paper'
 
-export default class Profile extends Component {
+class Profile extends Component {
   constructor (props) {
     super(props)
     this.state = {
       books: [],
+      pinjams: [],
       data: [],
       refreshing: false,
       token: '',
@@ -67,7 +71,20 @@ export default class Profile extends Component {
     })
   }
 
+  componentDidMount = async () => {
+    await this.props.dispatch(
+      getPinjamId(this.props.navigation.getParam('id_user'))
+    )
+    this.setState({
+      pinjams: this.props.pinjam
+    })
+  }
+
   render () {
+    const { pinjams } = this.state
+    const list = pinjams.listPinjam
+    console.log(`ini id user`, this.state.id_user)
+    console.log(`pinjaaaaammmssss`, this.state.pinjams.listPinjam)
     return (
       <View
         style={{
@@ -78,6 +95,13 @@ export default class Profile extends Component {
         }}
       >
         <StatusBar backgroundColor='white' barStyle='dark-content' />
+        <NavigationEvents
+          onWillFocus={payload =>
+            this.props.dispatch(
+              getPinjamId(this.props.navigation.getParam('id_user'))
+            )
+          }
+        />
         <View style={{ flexDirection: 'row', position: 'absolute' }}>
           <View>
             <IconButton
@@ -130,34 +154,53 @@ export default class Profile extends Component {
         >
           <Text
             text10
-            style={{ fontSize: 20, fontWeight: 'normal', marginBottom: 16 }}
+            style={{ fontSize: 20, fontWeight: 'normal', marginBottom: 8 }}
           >
-            HISTORY
+            BOOK LENDING HISTORY
           </Text>
-          <ScrollView>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ marginRight: 8 }}>
-                <Image
-                  style={{
-                    width: 70,
-                    height: 100,
-                    borderRadius: 8
-                  }}
-                  source={{
-                    uri:
-                      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Feskipaper.com%2Fimages%2Fpikachu-pokemon-cute-face-creative-cartoon-1.jpg&f=1'
-                  }}
-                />
+          <FlatList
+            extraData={this.state.pinjams.listPinjam}
+            showsVerticalScrollIndicator={false}
+            data={this.state.pinjams.listPinjam}
+            keyExtractor={item => item.id_buku.toString()}
+            renderItem={({ item }) => (
+              <View style={{ flexDirection: 'row' }}>
+                <View style={{ marginRight: 8, marginBottom: 8 }}>
+                  <Image
+                    style={{
+                      width: 70,
+                      height: 100,
+                      borderRadius: 8
+                    }}
+                    source={{
+                      uri: item.gmb_buku
+                    }}
+                  />
+                </View>
+                <View style={{ flex: 1, marginVertical: 8 }}>
+                  <Headline>{item.nama_buku}</Headline>
+                  <Caption>{item.penulis_buku}</Caption>
+                  <Caption>{item.lokasi_buku}</Caption>
+                </View>
               </View>
-              <View style={{ flex: 1 }}>
-                <Headline>Doddy Rizal Novianto</Headline>
-                <Caption>rizaaru@gmail.com</Caption>
-                <Caption>4611417023</Caption>
-              </View>
-            </View>
-          </ScrollView>
+            )}
+            style={{
+              marginTop: 16,
+              width: '100%'
+            }}
+            numColumns={1}
+          />
         </Card>
       </View>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    buku: state.buku,
+    pinjam: state.pinjam
+  }
+}
+
+export default connect(mapStateToProps)(Profile)

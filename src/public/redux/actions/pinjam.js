@@ -21,3 +21,10 @@ export const patchPinjam = (id_buku) => {
     payload: axios.patch(Url + `pinjam/${id_buku}`)
   }
 }
+
+export const getPinjamId = (id_user) => {
+  return {
+    type: "GET_PINJAM_ID",
+    payload: axios.get(Url + `pinjam/details/${id_user}`)
+  }
+}

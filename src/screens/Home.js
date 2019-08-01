@@ -148,7 +148,9 @@ class Home extends Component {
                 icon='account-circle'
                 color={Colors.grey700}
                 size={30}
-                onPress={() => this.props.navigation.navigate('Profile')}
+                onPress={() => this.props.navigation.navigate('Profile',{
+                  id_user:this.state.id_user
+                })}
               />
             ) : (
               <TouchableRipple
