@@ -13,15 +13,15 @@ class Register extends Component {
   }
 
   render () {
-    const userRegister = () => {
-      this.state.userRegister.push({
+    const userRegister = async () => {
+      await this.state.userRegister.push({
         id_user: this.state.id_user,
         nama_user: this.state.nama_user,
         email: this.state.email,
         password: this.state.password
       })
       console.log(`User register`, userRegister)
-      this.props.dispatch(registerUser(this.state.userRegister)).then(() => {
+      await this.props.dispatch(registerUser(this.state.userRegister)).then(() => {
         this.props.navigation.navigate('Login')
       })
     }

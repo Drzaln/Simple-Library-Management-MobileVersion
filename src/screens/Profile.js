@@ -71,7 +71,11 @@ class Profile extends Component {
     })
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
+    this.makeRequest()
+  }
+
+  makeRequest = async () => {
     await this.props.dispatch(
       getPinjamId(this.props.navigation.getParam('id_user'))
     )
@@ -95,13 +99,7 @@ class Profile extends Component {
         }}
       >
         <StatusBar backgroundColor='white' barStyle='dark-content' />
-        <NavigationEvents
-          onWillFocus={payload =>
-            this.props.dispatch(
-              getPinjamId(this.props.navigation.getParam('id_user'))
-            )
-          }
-        />
+        <NavigationEvents onWillFocus={payload => this.makeRequest()} />
         <View style={{ flexDirection: 'row', position: 'absolute' }}>
           <View>
             <IconButton
@@ -159,9 +157,9 @@ class Profile extends Component {
             BOOK LENDING HISTORY
           </Text>
           <FlatList
-            extraData={this.state.pinjams.listPinjam}
+            extraData={list}
             showsVerticalScrollIndicator={false}
-            data={this.state.pinjams.listPinjam}
+            data={list}
             keyExtractor={item => item.id_buku.toString()}
             renderItem={({ item }) => (
               <View style={{ flexDirection: 'row' }}>

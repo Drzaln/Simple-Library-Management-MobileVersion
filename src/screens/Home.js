@@ -189,7 +189,8 @@ class Home extends Component {
                       style={{
                         width: 150,
                         height: 200,
-                        borderRadius: 8
+                        borderRadius: 8,
+                        opacity: 0.3
                       }}
                       source={{ uri: item.gmb_buku }}
                     />
