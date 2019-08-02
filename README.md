@@ -8,16 +8,16 @@
 ##### Make with :boom: and [React Native](https://facebook.github.io/react-native/)
 
 ## Installation
-> ```
-> $ git clone https://github.com/Drzaln/Simple-Library-Management-MobileVersion.git
-> 
-> $ npm install
-> 
-> $ react-native run-android
-> ```
-> or
-> ```
-> $ react-native run-ios
-> ```
+```
+ $ git clone https://github.com/Drzaln/Simple-Library-Management-MobileVersion.git
+
+ $ npm install
+
+ $ react-native run-android
+ ```
+ or
+ ```
+ $ react-native run-ios
+ ```
 
 #### You can follow [this link](https://dev.to/zilurrane/generate-release-mode-apk-for-react-native-project-to-publish-on-playstore-5f78) to generate this project to APK file
