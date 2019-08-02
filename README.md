@@ -20,4 +20,6 @@
  $ react-native run-ios
  ```
 
-#### You can follow [this link](https://dev.to/zilurrane/generate-release-mode-apk-for-react-native-project-to-publish-on-playstore-5f78) to generate this project to APK file
+- #### Follow [this link](https://dev.to/zilurrane/generate-release-mode-apk-for-react-native-project-to-publish-on-playstore-5f78) to generate this project to APK file.
+
+- #### Follow [this link](https://www.freecodecamp.org/news/how-to-add-app-icons-and-splash-screens-to-a-react-native-app-in-staging-and-production-d1dab615e7c6/) to add app icon and splash screen to your React Native project file.
