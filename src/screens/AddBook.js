@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { postBuku } from '../public/redux/actions/buku'
 import { View, StatusBar, ScrollView } from 'react-native'
 import { Text, Card, TextInput, Button, IconButton } from 'react-native-paper'
+import ImagePicker from "react-native-image-picker";
 
 class AddBook extends Component {
   constructor (props) {
@@ -14,29 +15,46 @@ class AddBook extends Component {
       penulis_buku: '',
       id_kategori: '',
       lokasi_buku: '',
-      ringkasan: ''
+      ringkasan: '',
+      image: null
     }
   }
 
   render () {
-    let add = async () => {
-      await this.props.dispatch(postBuku(this.state.buku[0])).then(() => {
+    let add = async (data) => {
+    console.log(`uedaaaaann`, data)
+      await this.props.dispatch(postBuku(data)).then(() => {
         this.props.navigation.goBack()
       })
     }
 
-    console.log(`uedaaaaann`, this.state.buku[0])
-
     const bookAdd = () => {
-      this.state.buku.push({
-        nama_buku: this.state.nama_buku,
-        penulis_buku: this.state.penulis_buku,
-        ringkasan: this.state.ringkasan,
-        lokasi_buku: this.state.lokasi_buku,
-        gmb_buku: this.state.gmb_buku,
-        id_kategori: this.state.id_kategori
+      let formData = new FormData()
+      formData.append('nama_buku', this.state.nama_buku)
+      formData.append('penulis_buku', this.state.penulis_buku)
+      formData.append('gmb_buku', this.state.gmb_buku)
+      formData.append('ringkasan', this.state.ringkasan)
+      formData.append('lokasi_buku', this.state.lokasi_buku)
+      formData.append('image', {
+        name: this.state.image.fileName,
+        type: this.state.image.type || null,
+        uri: this.state.image.uri
       })
-      add()
+      console.log(`gambarnya`, '/images/' + this.state.image.fileName)
+      formData.append('id_kategori', this.state.id_kategori)
+      add(formData)
+    }
+
+    handleChoosePhoto = () => {
+      const options = {
+        noData: true
+      }
+
+      ImagePicker.launchImageLibrary(options, response => {
+        if (response.uri) {
+          this.setState({image: response})
+        }
+      })
     }
 
     return (
@@ -94,7 +112,7 @@ class AddBook extends Component {
                   mode='outlined'
                   dark
                   color='black'
-                  onPress={() => alert('diklik')}
+                  onPress={handleChoosePhoto}
                   style={{ borderColor: 'black' }}
                 >
                   Upload Image

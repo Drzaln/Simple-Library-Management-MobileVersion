@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import Url from '../support/url'
 import { View, StatusBar, ScrollView, Image, AsyncStorage } from 'react-native'
 import { Text, IconButton, Card, FAB } from 'react-native-paper'
 import { colorsFromUrl } from 'react-native-dominant-color'
 import { connect } from 'react-redux'
 import { getBukuId } from '../public/redux/actions/buku'
-import { postPinjam } from "../public/redux/actions/pinjam";
+import { postPinjam } from '../public/redux/actions/pinjam'
 
 class DetailBook extends Component {
   constructor () {
@@ -12,7 +13,7 @@ class DetailBook extends Component {
     this.state = {
       color: '#ffffff',
       books: [],
-      pinjam:[],
+      pinjam: [],
       token: '',
       id_user: '',
       nama_user: '',
@@ -65,7 +66,6 @@ class DetailBook extends Component {
   }
 
   render () {
-
     const cekLogin = () => {
       if (this.state.token == '') {
         this.props.navigation.navigate('Login')
@@ -80,9 +80,9 @@ class DetailBook extends Component {
         nama_user: this.state.nama_user,
         id_buku: this.props.navigation.getParam('id_buku'),
         lama_pinjam: 3,
-        tgl_pinjam: new Date(),
+        tgl_pinjam: new Date()
       })
-      
+
       add()
     }
     let add = async () => {
@@ -93,7 +93,7 @@ class DetailBook extends Component {
 
     const { books } = this.state
     const list = books.listBuku
-    // console.warn(`cucoooookk`, list)
+    console.log(`ini dari list`, list)
     return (
       <>
         <View>
@@ -108,7 +108,11 @@ class DetailBook extends Component {
             >
               <IconButton
                 icon='navigate-before'
-                color={this.state.color == "#fff" ? this.state.color == "#000" : this.state.color}
+                color={
+                  this.state.color == '#fff'
+                    ? this.state.color == '#000'
+                    : this.state.color
+                }
                 size={30}
                 onPress={() => this.props.navigation.goBack()}
                 style={{ position: 'absolute' }}
@@ -144,9 +148,14 @@ class DetailBook extends Component {
                 </View>
                 <GambarBuku
                   gambar={
-                    list
-                      ? list.gmb_buku
-                      : 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.thesocialmediahat.com%2Fsites%2Fdefault%2Ffiles%2Fdefault_profile_4.png&f=1'
+                    // (list
+                    //   ? list.gmb_buku != ''
+                    //   : 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.thesocialmediahat.com%2Fsites%2Fdefault%2Ffiles%2Fdefault_profile_4.png&f=1')
+                    //   ? list
+                    //     ? list.gmb_buku
+                    //     : 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.thesocialmediahat.com%2Fsites%2Fdefault%2Ffiles%2Fdefault_profile_4.png&f=1'
+                    //   : list ? `${Url} + ${list.image}` : ''
+                    list ? list.gmb_buku : ''
                   }
                 />
               </View>

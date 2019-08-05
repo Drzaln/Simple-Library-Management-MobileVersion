@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
+import Url from '../support/url'
+import { FlatGrid } from 'react-native-super-grid'
 import { NavigationEvents } from 'react-navigation'
 import { getBuku } from '../public/redux/actions/buku'
 import { connect } from 'react-redux'
-import { View, StatusBar, FlatList, Image, AsyncStorage } from 'react-native'
+import {
+  View,
+  StatusBar,
+  Image,
+  AsyncStorage,
+  ActivityIndicator
+} from 'react-native'
 import {
   Searchbar,
   TouchableRipple,
@@ -148,9 +156,11 @@ class Home extends Component {
                 icon='account-circle'
                 color={Colors.grey700}
                 size={30}
-                onPress={() => this.props.navigation.navigate('Profile',{
-                  id_user:this.state.id_user
-                })}
+                onPress={() =>
+                  this.props.navigation.navigate('Profile', {
+                    id_user: this.state.id_user
+                  })
+                }
               />
             ) : (
               <TouchableRipple
@@ -172,16 +182,13 @@ class Home extends Component {
             style={{ borderRadius: 32, width: '90%', height: 40 }}
           />
         </View>
-        {haiData != 'undefined' ? (
-          <FlatList
-            extraData={this.state.books}
+        {haiData != '' ? (
+          <FlatGrid
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh}
-            showsVerticalScrollIndicator={false}
-            data={this.state.books}
-            keyExtractor={item => item.id_buku.toString()}
-            renderItem={({ item }) => (
-              <Card style={{ margin: 8, borderRadius: 8 }} elevation={4}>
+            items={this.state.books}
+            renderItem={({ item, index }) => (
+              <Card style={{ borderRadius: 8 }} elevation={4} key={index}>
                 {item.status_pinjam == 'dipinjam' ? (
                   <>
                     <Image
@@ -192,7 +199,12 @@ class Home extends Component {
                         borderRadius: 8,
                         opacity: 0.3
                       }}
-                      source={{ uri: item.gmb_buku }}
+                      source={{
+                        uri:
+                          item.gmb_buku == ''
+                            ? Url + item.image
+                            : item.gmb_buku
+                      }}
                     />
                     <Button
                       mode='contained'
@@ -226,25 +238,25 @@ class Home extends Component {
                         height: 200,
                         borderRadius: 8
                       }}
-                      source={{ uri: item.gmb_buku }}
+                      source={{
+                        uri:
+                          item.gmb_buku == ''
+                            ? Url + item.image
+                            : item.gmb_buku
+                      }}
                     />
                   </TouchableRipple>
                 )}
               </Card>
             )}
-            style={{
-              marginTop: 16,
-              width: '100%'
-            }}
-            numColumns={2}
           />
         ) : (
           <View style={{ alignItems: 'center' }}>
-            <Text
-              style={{ marginTop: '50%', fontSize: 40, fontWeight: 'bold' }}
-            >
-              Can't Get Data!
-            </Text>
+            <ActivityIndicator
+              size='large'
+              color='black'
+              style={{ marginTop: 70 }}
+            />
           </View>
         )}
         <FAB
