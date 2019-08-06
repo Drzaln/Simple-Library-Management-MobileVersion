@@ -148,14 +148,7 @@ class DetailBook extends Component {
                 </View>
                 <GambarBuku
                   gambar={
-                    // (list
-                    //   ? list.gmb_buku != ''
-                    //   : 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.thesocialmediahat.com%2Fsites%2Fdefault%2Ffiles%2Fdefault_profile_4.png&f=1')
-                    //   ? list
-                    //     ? list.gmb_buku
-                    //     : 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.thesocialmediahat.com%2Fsites%2Fdefault%2Ffiles%2Fdefault_profile_4.png&f=1'
-                    //   : list ? `${Url} + ${list.image}` : ''
-                    list ? list.gmb_buku : ''
+                    list ? list.gmb_buku : 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.thesocialmediahat.com%2Fsites%2Fdefault%2Ffiles%2Fdefault_profile_4.png&f=1'
                   }
                 />
               </View>

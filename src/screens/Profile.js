@@ -67,7 +67,7 @@ class Profile extends Component {
 
   logout = () => {
     AsyncStorage.clear().then(() => {
-      this.props.navigation.navigate('Home')
+      this.props.navigation.push('Home')
     })
   }
 
@@ -106,7 +106,7 @@ class Profile extends Component {
               icon='navigate-before'
               color='black'
               size={30}
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={() => this.props.navigation.push('Home')}
             />
           </View>
           <View

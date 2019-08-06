@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Url from '../support/url'
 import { FlatGrid } from 'react-native-super-grid'
 import { NavigationEvents } from 'react-navigation'
-import { getBuku } from '../public/redux/actions/buku'
+import { getBuku, getMoreBook } from '../public/redux/actions/buku'
 import { connect } from 'react-redux'
 import {
   View,
@@ -29,6 +29,8 @@ class Home extends Component {
       books: [],
       data: [],
       refreshing: false,
+      isLoading: true,
+      page: 1,
       token: '',
       id_user: '',
       nama_user: '',
@@ -77,15 +79,74 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.makeRequest()
+    // this.loadMore()
   }
 
   makeRequest = async () => {
     await this.props.dispatch(getBuku())
     this.setState({
       books: this.props.buku.listBuku,
-      refreshing: false
+      refreshing: false,
+      page: 1
     })
     console.log(`testinggggg`, this.props.buku.listBuku)
+  }
+
+  loadMore = () => {
+    const { page } = this.state
+    this.props
+      .dispatch(getMoreBook(page))
+      .then(res => {
+        this.setState({
+          books: this.state.books.concat(res.action.payload.data.result),
+          isLoading: false
+        })
+      })
+      .catch( () => {
+        console.warn(`tesssssssssssssssss`)
+        this.setState({ isLoading: false })
+      })
+  }
+
+  handleRefresh = () => {
+    this.setState(
+      {
+        refreshing: true
+      },
+      () => {
+        this.makeRequest()
+      }
+    )
+  }
+
+  handleLoadMore = () => {
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => {
+        this.loadMore()
+      }
+    )
+  }
+
+  footerLoader = () => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#fff',
+          marginVertical: 8
+        }}
+      >
+        <>
+          <ActivityIndicator animating size='large' color='black' />
+          <Text style={{ marginTop: 8, fontSize: 12 }}>Load Data</Text>
+        </>
+      </View>
+    )
   }
 
   searchFilterFunction = text => {
@@ -102,17 +163,6 @@ class Home extends Component {
     this.setState({
       data: newData
     })
-  }
-
-  handleRefresh = () => {
-    this.setState(
-      {
-        refreshing: true
-      },
-      () => {
-        this.makeRequest()
-      }
-    )
   }
 
   render () {
@@ -184,9 +234,13 @@ class Home extends Component {
         </View>
         {haiData != '' ? (
           <FlatGrid
+            onEndReached={this.handleLoadMore}
+            onEndReachedThreshold={0.01}
+            // ListFooterComponent={this.footerLoader}
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh}
             items={this.state.books}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <Card style={{ borderRadius: 8 }} elevation={4} key={index}>
                 {item.status_pinjam == 'dipinjam' ? (

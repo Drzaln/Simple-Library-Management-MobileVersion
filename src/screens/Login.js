@@ -33,7 +33,7 @@ class Login extends Component {
     let logindong = async () => {
       await this.props.dispatch(userLogin(this.state.loginUser[0]))
       .then(() => {
-        this.props.navigation.navigate('Home')
+        this.props.navigation.push('Home')
       })
     }
 

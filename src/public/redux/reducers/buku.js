@@ -27,6 +27,26 @@ export const buku = (state = initialState, action) => {
                 isFulfilled: true,
                 listBuku: action.payload.data.result
             }
+        case 'GET_MORE_BUKU_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isRejected: false,
+                isFulfilled: false
+            }
+        case 'GET_MORE_BUKU_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            }
+        case 'GET_MORE_BUKU_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                listBuku: action.payload.data.result
+            }
         case 'GET_BOOK_ID_PENDING':
             return {
                 ...state,
