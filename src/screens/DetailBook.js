@@ -87,7 +87,7 @@ class DetailBook extends Component {
     }
     let add = async () => {
       await this.props.dispatch(postPinjam(this.state.pinjam[0])).then(() => {
-        this.props.navigation.navigate('Home')
+        this.props.navigation.push('Home')
       })
     }
 
