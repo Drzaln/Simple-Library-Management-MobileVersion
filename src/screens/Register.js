@@ -64,7 +64,7 @@ class Register extends Component {
               keyboardType='numeric'
               mode='outlined'
               textContentType='creditCardNumber'
-              label='Id'
+              label='User ID'
               value={this.state.id_user}
               onChangeText={id_user => this.setState({ id_user })}
               style={{ borderRadius: 8, marginBottom: 8 }}

@@ -214,7 +214,7 @@ class Home extends Component {
               />
             ) : (
               <TouchableRipple
-                onPress={() => this.props.navigation.navigate('Login')}
+                onPress={() => this.props.navigation.push('Login')}
                 rippleColor='rgba(0, 0, 0, .32)'
               >
                 <Text text10 style={{ color: 'black', fontSize: 16 }}>
@@ -236,7 +236,7 @@ class Home extends Component {
           <FlatGrid
             onEndReached={this.handleLoadMore}
             onEndReachedThreshold={0.01}
-            // ListFooterComponent={this.footerLoader}
+            ListFooterComponent={this.footerLoader}
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh}
             items={this.state.books}
@@ -248,7 +248,7 @@ class Home extends Component {
                     <Image
                       progressiveRenderingEnabled
                       style={{
-                        width: 150,
+                        width: '100%',
                         height: 200,
                         borderRadius: 8,
                         opacity: 0.3
@@ -278,7 +278,7 @@ class Home extends Component {
                 ) : (
                   <TouchableRipple
                     onPress={() =>
-                      this.props.navigation.navigate('DetailBook', {
+                      this.props.navigation.push('DetailBook', {
                         id_buku: item.id_buku
                       })
                     }
@@ -288,7 +288,7 @@ class Home extends Component {
                     <Image
                       progressiveRenderingEnabled
                       style={{
-                        width: 150,
+                        width: '100%',
                         height: 200,
                         borderRadius: 8
                       }}

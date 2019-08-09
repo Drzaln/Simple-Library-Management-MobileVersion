@@ -87,7 +87,7 @@ class DetailBook extends Component {
     }
     let add = async () => {
       await this.props.dispatch(postPinjam(this.state.pinjam[0])).then(() => {
-        this.props.navigation.push('Home')
+        this.props.navigation.navigate('Home')
       })
     }
 
@@ -114,7 +114,7 @@ class DetailBook extends Component {
                     : this.state.color
                 }
                 size={30}
-                onPress={() => this.props.navigation.goBack()}
+                onPress={() => this.props.navigation.push('Home')}
                 style={{ position: 'absolute' }}
               />
 
