@@ -1,11 +1,15 @@
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Drzaln/Simple-Library-Management-MobileVersion)
-
 <div align=center>
 <img src="src/ic_launcher.png" width="200px;" alt="X"/>
 </div>
 
 # Simple Library Management Mobile Version
 ##### Make with :boom: and [React Native](https://facebook.github.io/react-native/)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Drzaln/Simple-Library-Management-MobileVersion)
+
+
+## Introduction
+
+BOOKS is application to manage books and library.
 
 ## Installation
 ```
