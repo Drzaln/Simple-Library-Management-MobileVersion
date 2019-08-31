@@ -20,9 +20,11 @@
  $ react-native run-ios
  ```
 
- ## Screenshot
+ ## Screenshot & GIF
 
  <img src="src/shot.png" width="500px;" alt="X"/>
+
+ [![books.gif](https://s3.gifyu.com/images/books.gif)](https://gifyu.com/image/hQa9)
 
  ## Related Project
  
